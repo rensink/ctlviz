@@ -6,7 +6,12 @@ Abstract
 
 This artifact supports the SPIN 2026 paper *Visualising CTL witnesses and counterexamples*. It contains a single Jar file, running under Java 21 or higher, that demonstrates the concept of evidence (witnesses or counterexamples) for CTL formulas and its visualisation, as described in the paper.
 
-The artifact is available under DOI [`10.5281/zenodo.18963031`](https://doi.org/10.5281/zenodo.18963031).
+The README belongs to CTLViz version 1.2.0. It is available under DOI [`10.5281/zenodo.19168848`](https://doi.org/10.5281/zenodo.19168848).
+
+**Changes with respect to the previous version (1.1.2):**
+
+- The classes `KripkePanel` and `ProofPanel` are relocated to the subpackage `display` so they are exported
+- This README contains more information about reusing the artefact
 
 Installing CTLViz
 -----
@@ -57,7 +62,29 @@ Running CTLViz in demo mode
 
 - Other checkboxes give rise to different views, as described in the paper.
 
-Using CTLViz as a library
+Reusing CTLViz
 -----
 
-Alternatively, CTLViz can be used as a library. It offers functionality to model check CTL queries on a user-defined Kripke structure while generating the corresponding evidence, and subsequently visualising the outcome and evidence. As a guide on how to use this functionality, the jar includes fully documented sources, except where those had to be obfuscated to meet the license requirements of the [YFiles for Java library](https://www.yworks.com/products/yfiles-for-java) used for the graph rendering.
+CTLViz offers reuse on three levels:
+
+- **Using the pre-programmed display setup for your own automata and formulas.** For this, you have to
+  
+  * Construct your own Kripke structure and your own formulas
+  * Instantiate a `KripkeDisplay` with that Kripke structure
+  * Add formulas to the display using `KripkeDisplay.addFormula`
+  * Call `KripkeDisplay.setVisible(true)`
+  
+  You will get a window displaying the Kripke structure itself, from which you can invoke the model checked on the pre-programmed formulas, exactly as for `GameDemo`. As a template, you can look at the source of `GameDemo`.
+
+- **Reusing the display components of Kripke structures and evidence.** The display components are, respectively, `KripkePanel` and `ProofPanel`, which can be found in the `display` subpackage. These are `JComponents`  and can be used anywhere in your GUI.
+  
+  * For `KripkePanel`, you just instantiate it with your own Kripke structure; there is no other functionality
+  * For `ProofPanel`, you instantiate it with a `Proof` (see below on how to get that), after which you can programmatically select select the state/formula pair that you want to visualise using `setEvidence`. To tune what you see, there are boolean flags `showComplete`, `showExtra`, `showLocal` and `showCombined` with corresponding getters and setters: these have exactly the effect of the four checkboxes on the windows shown above.
+
+- **Generating evidence programmatically.** The CTLViz library contains core model checking functionality that generates the evidence and proofs as discussed in the paper. All relevant classes can be found in the subpackage `model` . The core consist of the class `Proof` objects, from which, once computed, `Evidence` for individual formulas can be retrieved. To use:
+  
+  * Instantiate a `Proof` for a given Kripke structure and formula;
+  * Immediately call `compute` on it
+  * Retrieve individual `Evidence` objects using `get`
+
+As a further guide on how to use this functionality, the jar includes fully documented sources, except where those had to be obfuscated to meet the license requirements of the [YFiles for Java library](https://www.yworks.com/products/yfiles-for-java) used for the graph rendering.
