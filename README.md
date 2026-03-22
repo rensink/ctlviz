@@ -6,7 +6,7 @@ Abstract
 
 This artifact supports the SPIN 2026 paper *Visualising CTL witnesses and counterexamples*. It contains a single Jar file, running under Java 21 or higher, that demonstrates the concept of evidence (witnesses or counterexamples) for CTL formulas and its visualisation, as described in the paper.
 
-The README belongs to CTLViz version 1.2.0. It is available under DOI [`10.5281/zenodo.19168848`](https://doi.org/10.5281/zenodo.19168848).
+The README belongs to CTLViz version 1.2.0. It is available under DOI [`10.5281/zenodo.19169335`](https://doi.org/10.5281/zenodo.19169335).
 
 **Changes with respect to the previous version (1.1.2):**
 
